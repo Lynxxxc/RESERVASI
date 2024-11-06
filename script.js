@@ -90,7 +90,9 @@ document
         numGuests,
         room.capacity // Simpan kapasitas awal ruangan
       );
+      // Tambahkan setelah room.addReservation(reservation);
       room.addReservation(reservation);
+      saveRoomsToLocalStorage();
 
       // Kurangi kapasitas ruangan sesuai dengan jumlah tamu
       room.capacity -= numGuests;
@@ -207,6 +209,7 @@ function cancelReservation(reservation) {
       const room = rooms.find((r) => r.number === reservation.roomNumber);
       if (room) {
         room.cancelReservation(reservation);
+        saveRoomsToLocalStorage();
 
         Swal.fire({
           title: "Reservasi Dibatalkan!",
@@ -237,6 +240,48 @@ function updateRoomSelection() {
     }
   });
 }
+
+// Fungsi untuk menyimpan data ruangan ke Local Storage
+function saveRoomsToLocalStorage() {
+  const roomsData = rooms.map((room) => ({
+    number: room.number,
+    capacity: room.capacity,
+    reservations: room.reservations,
+  }));
+  localStorage.setItem("rooms", JSON.stringify(roomsData));
+}
+
+// Fungsi untuk memuat data ruangan dari Local Storage
+function loadRoomsFromLocalStorage() {
+  const storedRooms = localStorage.getItem("rooms");
+  if (storedRooms) {
+    const roomsData = JSON.parse(storedRooms);
+    roomsData.forEach((data) => {
+      const room = rooms.find((r) => r.number === data.number);
+      if (room) {
+        room.capacity = data.capacity;
+        room.reservations = data.reservations.map(
+          (reservation) =>
+            new Reservation(
+              reservation.name,
+              reservation.roomNumber,
+              reservation.date,
+              reservation.startTime,
+              reservation.duration,
+              reservation.numGuests,
+              reservation.roomCapacity
+            )
+        );
+      }
+    });
+  }
+}
+
+// Panggil loadRoomsFromLocalStorage sebelum inisialisasi tampilan
+loadRoomsFromLocalStorage();
+displayRooms();
+displayReservations();
+updateRoomSelection();
 
 // Inisialisasi tampilan
 displayRooms();
