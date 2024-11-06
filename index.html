@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Reservasi Ruangan Kelas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- SweetAlert2 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  </head>
+  <body>
+    <h1>Sistem Reservasi Ruangan Kelas</h1>
+
+    <section>
+      <h2>Daftar Ruangan</h2>
+      <table id="roomList">
+        <thead>
+          <tr>
+            <th>Nomor Ruangan</th>
+            <th>Kapasitas</th>
+            <th>Status Ketersediaan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Daftar ruangan akan ditampilkan di sini -->
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Formulir Reservasi</h2>
+      <form id="reservationForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="roomNumber">Nomor Ruangan:</label>
+        <select id="roomNumber" name="roomNumber" required>
+          <option value="101">101</option>
+          <option value="102">102</option>
+          <option value="103">103</option>
+          <option value="104">104</option>
+          <option value="105">105</option>
+        </select>
+
+        <label for="reservationDate">Tanggal Reservasi:</label>
+        <input
+          type="date"
+          id="reservationDate"
+          name="reservationDate"
+          required
+        />
+
+        <label for="startTime">Waktu Mulai:</label>
+        <input type="time" id="startTime" name="startTime" required />
+
+        <label for="duration">Durasi (jam):</label>
+        <input type="number" id="duration" name="duration" required />
+
+        <label for="numGuests">Jumlah Tamu:</label>
+        <input type="number" id="numGuests" name="numGuests" required />
+
+        <button type="submit">Pesan Ruangan</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Daftar Reservasi</h2>
+      <ul id="reservationList">
+        <!-- Daftar reservasi akan ditampilkan di sini -->
+      </ul>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>

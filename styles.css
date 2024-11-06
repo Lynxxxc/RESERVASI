@@ -1,0 +1,146 @@
+/* Atur styling global */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+/* Styling untuk judul */
+h1 {
+  text-align: center;
+  color: #3f51b5;
+}
+
+/* Atur tampilan tabel daftar ruangan */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #3f51b5;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Styling untuk formulir reservasi */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  margin-bottom: 5px;
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+/* Styling untuk container daftar reservasi */
+#reservationListContainer {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Judul daftar reservasi */
+#reservationListContainer h2 {
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  color: #3f51b5;
+  margin-bottom: 20px;
+}
+
+/* Styling untuk tiap card reservasi */
+.reservation-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.reservation-card:hover {
+  transform: scale(1.05);
+}
+
+.reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.reservation-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.reservation-button {
+  align-self: center;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.reservation-button:hover {
+  background-color: #d32f2f;
+}
