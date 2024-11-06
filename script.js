@@ -27,9 +27,7 @@ class Room {
 
   // Fungsi untuk membatalkan reservasi
   cancelReservation(reservation) {
-    // Kembalikan kapasitas sesuai dengan jumlah tamu
     this.capacity += reservation.numGuests;
-    // Hapus reservasi dari daftar
     this.reservations = this.reservations.filter((res) => res !== reservation);
   }
 }
@@ -101,22 +99,21 @@ document
       Swal.fire({
         title: "Reservasi Berhasil!",
         text: `Ruangan ${room.number} telah berhasil dipesan untuk ${numGuests} tamu.`,
-        icon: "success", // Ikon untuk sukses
-        confirmButtonText: "Tutup", // Tombol konfirmasi
-        confirmButtonColor: "#3f51b5", // Warna tombol konfirmasi
+        icon: "success",
+        confirmButtonText: "Tutup",
+        confirmButtonColor: "#3f51b5",
       });
 
       // Perbarui tampilan ruangan dan reservasi
       displayRooms();
       displayReservations();
     } else {
-      // Jika ruangan tidak tersedia atau kapasitas melebihi batas
       Swal.fire({
         title: "Gagal!",
         text: "Ruangan tidak tersedia pada waktu yang dipilih atau kapasitas melebihi batas.",
-        icon: "error", // Ikon untuk error
-        confirmButtonText: "Coba Lagi", // Tombol konfirmasi
-        confirmButtonColor: "#e53935", // Warna tombol error
+        icon: "error",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#e53935",
       });
     }
   });
@@ -135,6 +132,9 @@ function displayRooms() {
     row.insertCell(2).innerText =
       room.reservations.length === 0 ? "Tersedia" : "Tidak Tersedia";
   });
+
+  // Perbarui pilihan nomor kamar pada form
+  updateRoomSelection();
 }
 
 // Menampilkan daftar reservasi dengan card-style
@@ -171,6 +171,10 @@ function displayReservations() {
       duration.innerText = `Durasi: ${reservation.duration} jam`;
       reservationInfo.appendChild(duration);
 
+      const numGuests = document.createElement("p");
+      numGuests.innerText = `Jumlah Tamu: ${reservation.numGuests}`;
+      reservationInfo.appendChild(numGuests);
+
       // Tombol untuk membatalkan reservasi
       const cancelButton = document.createElement("button");
       cancelButton.classList.add("reservation-button");
@@ -179,11 +183,9 @@ function displayReservations() {
         cancelReservation(reservation)
       );
 
-      // Menambahkan info reservasi dan tombol ke card
       reservationCard.appendChild(reservationInfo);
       reservationCard.appendChild(cancelButton);
 
-      // Menambahkan card ke daftar
       reservationList.appendChild(reservationCard);
     });
   });
@@ -198,26 +200,22 @@ function cancelReservation(reservation) {
     showCancelButton: true,
     confirmButtonText: "Ya, Batalkan",
     cancelButtonText: "Tidak",
-    confirmButtonColor: "#e53935", // Warna tombol konfirmasi
-    cancelButtonColor: "#3f51b5", // Warna tombol batal
+    confirmButtonColor: "#e53935",
+    cancelButtonColor: "#3f51b5",
   }).then((result) => {
     if (result.isConfirmed) {
-      // Temukan ruangan yang sesuai dengan nomor ruangan dari reservasi
       const room = rooms.find((r) => r.number === reservation.roomNumber);
       if (room) {
-        // Mengembalikan kapasitas ke nilai awal sebelum reservasi
         room.cancelReservation(reservation);
 
-        // Tampilkan SweetAlert2 untuk sukses pembatalan
         Swal.fire({
           title: "Reservasi Dibatalkan!",
           text: "Reservasi Anda telah dibatalkan.",
           icon: "success",
           confirmButtonText: "Tutup",
-          confirmButtonColor: "#3f51b5", // Warna tombol konfirmasi
+          confirmButtonColor: "#3f51b5",
         });
 
-        // Update tampilan setelah pembatalan
         displayRooms();
         displayReservations();
       }
@@ -225,6 +223,22 @@ function cancelReservation(reservation) {
   });
 }
 
+// Fungsi untuk memperbarui pilihan nomor kamar di dropdown
+function updateRoomSelection() {
+  const roomSelect = document.getElementById("roomNumber");
+  roomSelect.innerHTML = ""; // Kosongkan pilihan yang ada
+
+  rooms.forEach((room) => {
+    if (room.capacity > 0) {
+      const option = document.createElement("option");
+      option.value = room.number;
+      option.innerText = `Ruangan ${room.number} (Kapasitas: ${room.capacity})`;
+      roomSelect.appendChild(option);
+    }
+  });
+}
+
 // Inisialisasi tampilan
 displayRooms();
 displayReservations();
+updateRoomSelection();
